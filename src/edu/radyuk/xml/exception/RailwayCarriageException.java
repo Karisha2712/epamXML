@@ -2,7 +2,6 @@ package edu.radyuk.xml.exception;
 
 public class RailwayCarriageException extends Exception {
     public RailwayCarriageException() {
-
     }
 
     public RailwayCarriageException(String message) {

@@ -1,22 +1,43 @@
 package edu.radyuk.xml.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Train {
     private final List<RailwayCarriage> train;
+    private int totalCarryingCapacity;
+    private int totalPassengersNumber;
 
-    public Train() {
-        train = new ArrayList<RailwayCarriage>();
+    public Train(List<RailwayCarriage> railwayCarriageList) {
+        train = railwayCarriageList;
     }
 
-    public void addRailwayCarriage(RailwayCarriage railwayCarriage) {
-        train.add(railwayCarriage);
+    public int getTotalCarryingCapacity() {
+        calculateTotalCarryingCapacity();
+        return totalCarryingCapacity;
     }
 
-    public void removeRailwayCarriage(RailwayCarriage railwayCarriage) {
-        train.remove(railwayCarriage);
+    private void calculateTotalCarryingCapacity() {
+        for (RailwayCarriage railwayCarriage : train) {
+            if (railwayCarriage instanceof FreightCar) {
+                totalCarryingCapacity = totalCarryingCapacity
+                        + ((FreightCar) railwayCarriage).getCarryingCapacity();
+            }
+        }
+    }
+
+    public int getTotalPassengersNumber() {
+        calculateTotalPassengersNumber();
+        return totalPassengersNumber;
+    }
+
+    public void calculateTotalPassengersNumber() {
+        for (RailwayCarriage railwayCarriage : train) {
+            if (railwayCarriage instanceof PassengerCarriage) {
+                totalPassengersNumber = totalPassengersNumber
+                        + ((PassengerCarriage) railwayCarriage).getPassengersNumber();
+            }
+        }
     }
 
     @Override
