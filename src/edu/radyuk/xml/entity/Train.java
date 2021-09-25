@@ -1,10 +1,11 @@
 package edu.radyuk.xml.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Train {
-    private final ArrayList<RailwayCarriage> train;
+    private final List<RailwayCarriage> train;
 
     public Train() {
         train = new ArrayList<RailwayCarriage>();
