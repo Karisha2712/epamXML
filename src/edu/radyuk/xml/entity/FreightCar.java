@@ -21,14 +21,14 @@ public class FreightCar extends RailwayCarriage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         FreightCar that = (FreightCar) o;
-        return super.getRailwayCarriageId() == that.getRailwayCarriageId()
-                && carryingCapacity == that.carryingCapacity;
+        return carryingCapacity == that.carryingCapacity;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.getRailwayCarriageId(), carryingCapacity);
+        return Objects.hash(super.hashCode(), carryingCapacity);
     }
 
     @Override

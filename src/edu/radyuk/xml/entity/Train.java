@@ -1,43 +1,77 @@
 package edu.radyuk.xml.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Train {
-    private final List<RailwayCarriage> train;
+    private List<RailwayCarriage> railwayCarriages;
+    private int totalPassengerNumber;
     private int totalCarryingCapacity;
-    private int totalPassengersNumber;
+
+    public Train() {
+        railwayCarriages = new ArrayList<>();
+    }
 
     public Train(List<RailwayCarriage> railwayCarriageList) {
-        train = railwayCarriageList;
+        railwayCarriages = railwayCarriageList;
+        totalPassengerNumber = calculateTotalPassengersNumber();
+        totalCarryingCapacity = calculateTotalCarryingCapacity();
+    }
+
+    public void setRailwayCarriages(List<RailwayCarriage> railwayCarriages) {
+        this.railwayCarriages = railwayCarriages;
+        totalPassengerNumber = calculateTotalPassengersNumber();
+        totalCarryingCapacity = calculateTotalCarryingCapacity();
+    }
+
+    public void addRailwayCarriage(RailwayCarriage railwayCarriage) {
+        railwayCarriages.add(railwayCarriage);
+        if (railwayCarriage instanceof FreightCar) {
+            totalCarryingCapacity += ((FreightCar) railwayCarriage).getCarryingCapacity();
+        } else {
+            totalPassengerNumber += ((PassengerCarriage) railwayCarriage).getPassengersNumber();
+        }
+    }
+
+    public void removeRailwayCarriage(RailwayCarriage railwayCarriage) {
+        if (railwayCarriage == null) {
+            return;
+        }
+        railwayCarriages.remove(railwayCarriage);
+        if (railwayCarriage instanceof FreightCar) {
+            totalCarryingCapacity -= ((FreightCar) railwayCarriage).getCarryingCapacity();
+        } else {
+            totalPassengerNumber -= ((PassengerCarriage) railwayCarriage).getPassengersNumber();
+        }
     }
 
     public int getTotalCarryingCapacity() {
-        calculateTotalCarryingCapacity();
         return totalCarryingCapacity;
     }
 
-    private void calculateTotalCarryingCapacity() {
-        for (RailwayCarriage railwayCarriage : train) {
+    public int getTotalPassengerNumber() {
+        return totalPassengerNumber;
+    }
+
+    private int calculateTotalCarryingCapacity() {
+        int totalCarryingCapacity = 0;
+        for (RailwayCarriage railwayCarriage : railwayCarriages) {
             if (railwayCarriage instanceof FreightCar) {
-                totalCarryingCapacity = totalCarryingCapacity
-                        + ((FreightCar) railwayCarriage).getCarryingCapacity();
+                totalCarryingCapacity += ((FreightCar) railwayCarriage).getCarryingCapacity();
             }
         }
+        return totalCarryingCapacity;
     }
 
-    public int getTotalPassengersNumber() {
-        calculateTotalPassengersNumber();
-        return totalPassengersNumber;
-    }
-
-    public void calculateTotalPassengersNumber() {
-        for (RailwayCarriage railwayCarriage : train) {
+    public int calculateTotalPassengersNumber() {
+        int totalPassengersNumber = 0;
+        for (RailwayCarriage railwayCarriage : railwayCarriages) {
             if (railwayCarriage instanceof PassengerCarriage) {
-                totalPassengersNumber = totalPassengersNumber
-                        + ((PassengerCarriage) railwayCarriage).getPassengersNumber();
+                totalPassengersNumber += ((PassengerCarriage) railwayCarriage).getPassengersNumber();
             }
         }
+        return totalPassengersNumber;
     }
 
     @Override
@@ -45,18 +79,18 @@ public class Train {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Train train1 = (Train) o;
-        return Objects.equals(train, train1.train);
+        return Objects.equals(railwayCarriages, train1.railwayCarriages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(train);
+        return Objects.hash(railwayCarriages);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Train{");
-        sb.append("train=").append(train);
+        sb.append("train=").append(railwayCarriages);
         sb.append('}');
         return sb.toString();
     }

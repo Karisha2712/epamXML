@@ -13,7 +13,7 @@ public class Main {
             Train train = new Train(parser.parseRailwayCarriages(FILE_PATH));
             System.out.println(train);
         } catch (RailwayCarriageException e) {
-            System.out.println("RailwayCarriageException");
+            System.err.println("RailwayCarriageException");
         }
     }
 }

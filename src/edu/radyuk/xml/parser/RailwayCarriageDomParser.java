@@ -68,7 +68,7 @@ public class RailwayCarriageDomParser {
             railwayCarriage.setCarryingCapacity(Integer.parseInt(getElementTextContent(railwayCarriageElement,
                     XmlTags.CARRYING_CAPACITY.toString())));
         } catch (NumberFormatException e) {
-            System.err.println("Document contains invalid data");
+            System.err.println("Document contains invalid data"); //TODO
             throw new RailwayCarriageException("Document contains invalid data", e);
         }
         return railwayCarriage;
@@ -83,7 +83,7 @@ public class RailwayCarriageDomParser {
             railwayCarriage.setPassengersNumber(Integer.parseInt(getElementTextContent(railwayCarriageElement,
                     XmlTags.PASSENGER_NUMBER.toString())));
         } catch (NumberFormatException e) {
-            System.err.println("Document contains invalid data");
+            System.err.println("Document contains invalid data");//TODO
             throw new RailwayCarriageException("Document contains invalid data", e);
         }
         return railwayCarriage;

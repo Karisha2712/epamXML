@@ -21,14 +21,14 @@ public class PassengerCarriage extends RailwayCarriage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         PassengerCarriage that = (PassengerCarriage) o;
-        return super.getRailwayCarriageId() == that.getRailwayCarriageId()
-                && passengersNumber == that.passengersNumber;
+        return passengersNumber == that.passengersNumber;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.getRailwayCarriageId(), passengersNumber);
+        return Objects.hash(super.hashCode(), passengersNumber);
     }
 
     @Override
