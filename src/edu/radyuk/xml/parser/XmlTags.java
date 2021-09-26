@@ -1,10 +1,13 @@
 package edu.radyuk.xml.parser;
 
 public enum XmlTags {
+    TRAIN,
+    TOTAL_CARRYING_CAPACITY,
+    TOTAL_PASSENGERS_NUMBER,
     PASSENGER_CARRIAGE,
     FREIGHT_CAR,
     RAILWAY_CARRIAGE_ID,
-    PASSENGER_NUMBER,
+    PASSENGERS_NUMBER,
     CARRYING_CAPACITY;
 
     private static final String UNDERSCORE = "_";

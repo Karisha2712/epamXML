@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<train>
+    <total-carrying-capacity>89</total-carrying-capacity>
+    <total-passengers-number>82</total-passengers-number>
+    <passenger-carriage railway-carriage-id="12">
+        <passengers-number>34</passengers-number>
+    </passenger-carriage>
+    <passenger-carriage railway-carriage-id="2">
+        <passengers-number>48</passengers-number>
+    </passenger-carriage>
+    <freight-car railway-carriage-id="13">
+        <carrying-capacity>24</carrying-capacity>
+    </freight-car>
+    <freight-car railway-carriage-id="14">
+        <carrying-capacity>65</carrying-capacity>
+    </freight-car>
+</train>

@@ -1,12 +1,5 @@
 package edu.radyuk.xml.parser;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import edu.radyuk.xml.entity.FreightCar;
 import edu.radyuk.xml.entity.PassengerCarriage;
 import edu.radyuk.xml.entity.RailwayCarriage;
@@ -17,15 +10,22 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class RailwayCarriageDomParser {
     private final List<RailwayCarriage> carriagesList;
-    private final DocumentBuilder docBuilder;
+    private final DocumentBuilder documentBuilder;
 
     public RailwayCarriageDomParser() throws RailwayCarriageException {
         carriagesList = new ArrayList<>();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
-            docBuilder = factory.newDocumentBuilder();
+            documentBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             System.err.println(e.getMessage());
             throw new RailwayCarriageException(e);
@@ -35,7 +35,7 @@ public class RailwayCarriageDomParser {
     public List<RailwayCarriage> parseRailwayCarriages(String filePath) throws RailwayCarriageException {
         Document document;
         try {
-            document = docBuilder.parse(filePath);
+            document = documentBuilder.parse(filePath);
             Element root = document.getDocumentElement();
             NodeList railwayCarriagesList = root.getElementsByTagName(XmlTags.PASSENGER_CARRIAGE.toString());
             for (int i = 0; i < railwayCarriagesList.getLength(); i++) {
@@ -68,7 +68,7 @@ public class RailwayCarriageDomParser {
             railwayCarriage.setCarryingCapacity(Integer.parseInt(getElementTextContent(railwayCarriageElement,
                     XmlTags.CARRYING_CAPACITY.toString())));
         } catch (NumberFormatException e) {
-            System.err.println("Document contains invalid data"); //TODO
+            System.err.println("Document contains invalid data" + e);
             throw new RailwayCarriageException("Document contains invalid data", e);
         }
         return railwayCarriage;
@@ -81,9 +81,9 @@ public class RailwayCarriageDomParser {
                     .getAttribute(XmlTags.RAILWAY_CARRIAGE_ID.toString()));
             railwayCarriage = new PassengerCarriage(railwayCarriageId);
             railwayCarriage.setPassengersNumber(Integer.parseInt(getElementTextContent(railwayCarriageElement,
-                    XmlTags.PASSENGER_NUMBER.toString())));
+                    XmlTags.PASSENGERS_NUMBER.toString())));
         } catch (NumberFormatException e) {
-            System.err.println("Document contains invalid data");//TODO
+            System.err.println("Document contains invalid data" + e);
             throw new RailwayCarriageException("Document contains invalid data", e);
         }
         return railwayCarriage;

@@ -54,6 +54,10 @@ public class Train {
         return totalPassengerNumber;
     }
 
+    public List<RailwayCarriage> getRailwayCarriages() {
+        return railwayCarriages;
+    }
+
     private int calculateTotalCarryingCapacity() {
         int totalCarryingCapacity = 0;
         for (RailwayCarriage railwayCarriage : railwayCarriages) {
@@ -64,7 +68,7 @@ public class Train {
         return totalCarryingCapacity;
     }
 
-    public int calculateTotalPassengersNumber() {
+    private int calculateTotalPassengersNumber() {
         int totalPassengersNumber = 0;
         for (RailwayCarriage railwayCarriage : railwayCarriages) {
             if (railwayCarriage instanceof PassengerCarriage) {

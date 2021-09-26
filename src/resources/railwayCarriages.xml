@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <railway-carriages>
     <passenger-carriage railway-carriage-id="12">
-        <passenger-number>34</passenger-number>
+        <passengers-number>34</passengers-number>
     </passenger-carriage>
     <freight-car railway-carriage-id="13">
         <carrying-capacity>24</carrying-capacity>
     </freight-car>
     <passenger-carriage railway-carriage-id="2">
-        <passenger-number>48</passenger-number>
+        <passengers-number>48</passengers-number>
     </passenger-carriage>
     <freight-car railway-carriage-id="14">
         <carrying-capacity>65</carrying-capacity>
