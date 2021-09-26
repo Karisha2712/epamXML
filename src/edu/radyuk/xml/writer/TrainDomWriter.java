@@ -5,7 +5,7 @@ import edu.radyuk.xml.entity.PassengerCarriage;
 import edu.radyuk.xml.entity.RailwayCarriage;
 import edu.radyuk.xml.entity.Train;
 import edu.radyuk.xml.exception.RailwayCarriageException;
-import edu.radyuk.xml.tags.XmlTags;
+import edu.radyuk.xml.tag.XmlTags;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
