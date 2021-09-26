@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class Train {
-    private List<RailwayCarriage> railwayCarriages;
     private int totalPassengerNumber;
     private int totalCarryingCapacity;
+    private final List<RailwayCarriage> railwayCarriages;
 
     public Train() {
         railwayCarriages = new ArrayList<>();
@@ -19,17 +19,11 @@ public class Train {
         totalCarryingCapacity = calculateTotalCarryingCapacity();
     }
 
-    public void setRailwayCarriages(List<RailwayCarriage> railwayCarriages) {
-        this.railwayCarriages = railwayCarriages;
-        totalPassengerNumber = calculateTotalPassengersNumber();
-        totalCarryingCapacity = calculateTotalCarryingCapacity();
-    }
-
     public void addRailwayCarriage(RailwayCarriage railwayCarriage) {
         railwayCarriages.add(railwayCarriage);
         if (railwayCarriage instanceof FreightCar) {
             totalCarryingCapacity += ((FreightCar) railwayCarriage).getCarryingCapacity();
-        } else {
+        } else if (railwayCarriage instanceof PassengerCarriage) {
             totalPassengerNumber += ((PassengerCarriage) railwayCarriage).getPassengersNumber();
         }
     }
@@ -41,7 +35,7 @@ public class Train {
         railwayCarriages.remove(railwayCarriage);
         if (railwayCarriage instanceof FreightCar) {
             totalCarryingCapacity -= ((FreightCar) railwayCarriage).getCarryingCapacity();
-        } else {
+        } else if (railwayCarriage instanceof PassengerCarriage) {
             totalPassengerNumber -= ((PassengerCarriage) railwayCarriage).getPassengersNumber();
         }
     }
@@ -94,7 +88,9 @@ public class Train {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Train{");
-        sb.append("train=").append(railwayCarriages);
+        sb.append("totalPassengerNumber=").append(totalPassengerNumber);
+        sb.append(", totalCarryingCapacity=").append(totalCarryingCapacity);
+        sb.append(", railwayCarriages=").append(railwayCarriages);
         sb.append('}');
         return sb.toString();
     }

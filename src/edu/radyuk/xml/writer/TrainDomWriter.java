@@ -1,10 +1,11 @@
-package edu.radyuk.xml.parser;
+package edu.radyuk.xml.writer;
 
 import edu.radyuk.xml.entity.FreightCar;
 import edu.radyuk.xml.entity.PassengerCarriage;
 import edu.radyuk.xml.entity.RailwayCarriage;
 import edu.radyuk.xml.entity.Train;
 import edu.radyuk.xml.exception.RailwayCarriageException;
+import edu.radyuk.xml.tags.XmlTags;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -44,14 +45,14 @@ public class TrainDomWriter {
             StreamResult result = new StreamResult(new FileWriter(filePath));
             transformer.transform(source, result);
         } catch (IOException e) {
-            System.err.printf("Error while opening file %s. %s%n", filePath, e.getMessage());
-            throw new RailwayCarriageException("Error while opening file" + filePath, e);
+            System.err.printf("Error while writing file %s. %s%n", filePath, e.getMessage());
+            throw new RailwayCarriageException("Error while writing file" + filePath, e);
         } catch (TransformerConfigurationException e) {
-            System.err.printf("Error while configuration file %s. %s%n", filePath, e.getMessage());
-            throw new RailwayCarriageException("Error while configuration file" + filePath, e);
+            System.err.println("Error while creating transformer instance" + e.getMessage());
+            throw new RailwayCarriageException("Error while creating transformer instance", e);
         } catch (TransformerException e) {
-            System.err.printf("Error while transforming file %s. %s%n", filePath, e.getMessage());
-            throw new RailwayCarriageException("Error while transforming file" + filePath, e);
+            System.err.println("Error while transforming XML source" + e.getMessage());
+            throw new RailwayCarriageException("Error while transforming XML source", e);
         }
     }
 
@@ -59,9 +60,9 @@ public class TrainDomWriter {
         for (RailwayCarriage railwayCarriage : train.getRailwayCarriages()) {
             Element railwayCarriageElement;
             if (railwayCarriage instanceof FreightCar) {
-                railwayCarriageElement = createPassengerCarriageElement(railwayCarriage);
-            } else {
                 railwayCarriageElement = createFreightCarElement(railwayCarriage);
+            } else {
+                railwayCarriageElement = createPassengerCarriageElement(railwayCarriage);
             }
             railwayCarriageElement.setAttribute(XmlTags.RAILWAY_CARRIAGE_ID.toString(),
                     Integer.toString(railwayCarriage.getRailwayCarriageId()));
@@ -80,7 +81,7 @@ public class TrainDomWriter {
         trainElement.appendChild(totalPassengersNumberElement);
     }
 
-    private Element createPassengerCarriageElement(RailwayCarriage railwayCarriage) {
+    private Element createFreightCarElement(RailwayCarriage railwayCarriage) {
         Element railwayCarriageElement = document.createElement(XmlTags.FREIGHT_CAR.toString());
         Element carryingCapacityElement = document.createElement(XmlTags.CARRYING_CAPACITY.toString());
         carryingCapacityElement.appendChild(document.createTextNode(
@@ -89,7 +90,7 @@ public class TrainDomWriter {
         return railwayCarriageElement;
     }
 
-    private Element createFreightCarElement(RailwayCarriage railwayCarriage) {
+    private Element createPassengerCarriageElement(RailwayCarriage railwayCarriage) {
         Element railwayCarriageElement = document.createElement(XmlTags.PASSENGER_CARRIAGE.toString());
         Element passengerNumberElement = document.createElement(XmlTags.PASSENGERS_NUMBER.toString());
         passengerNumberElement.appendChild(document.createTextNode(

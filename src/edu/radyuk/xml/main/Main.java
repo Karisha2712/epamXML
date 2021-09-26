@@ -3,11 +3,11 @@ package edu.radyuk.xml.main;
 import edu.radyuk.xml.entity.Train;
 import edu.radyuk.xml.exception.RailwayCarriageException;
 import edu.radyuk.xml.parser.RailwayCarriageDomParser;
-import edu.radyuk.xml.parser.TrainDomWriter;
+import edu.radyuk.xml.writer.TrainDomWriter;
 
 public class Main {
     public static final String FILE_PATH_FOR_PARSING = "src/resources/railwayCarriages.xml";
-    public static final String FILE_PATH_FOR_WRITING = "src/resources/railwayCarriages.xml";
+    public static final String FILE_PATH_FOR_WRITING = "src/resources/train.xml";
 
     public static void main(String[] args) {
         try {
@@ -17,7 +17,7 @@ public class Main {
             TrainDomWriter trainDomWriter = new TrainDomWriter();
             trainDomWriter.writeTrain(train, FILE_PATH_FOR_WRITING);
         } catch (RailwayCarriageException e) {
-            System.err.println("RailwayCarriageException");
+            System.err.println(e.getMessage());
         }
     }
 }

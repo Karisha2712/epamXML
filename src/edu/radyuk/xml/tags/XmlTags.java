@@ -1,4 +1,4 @@
-package edu.radyuk.xml.parser;
+package edu.radyuk.xml.tags;
 
 public enum XmlTags {
     TRAIN,
